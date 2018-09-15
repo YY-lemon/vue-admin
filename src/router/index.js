@@ -5,8 +5,7 @@ import Home from '@/views/Home'
 
 
 Vue.use(Router)
-
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/login',
@@ -20,6 +19,8 @@ export default new Router({
     }
   ]
 })
+
+
 
 
 // 路由导航守卫
@@ -36,3 +37,5 @@ router.beforeEach((to, from, next) => {
   }
   
 })
+
+export default router
