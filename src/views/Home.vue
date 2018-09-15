@@ -1,9 +1,9 @@
 <template>
     <div class="home">
         <el-container>
-            <el-aside width="200px">
+            <el-aside width="auto">
                 <div class="logo"></div>
-                <el-menu default-active="2" class="el-menu-admin" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+                <el-menu default-active="2" class="el-menu-admin" @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :collapse="isCollapse">
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-location"></i>
@@ -20,8 +20,18 @@
                 </el-menu>
             </el-aside>
             <el-container>
-                <el-header>Header</el-header>
-                <el-main>Main</el-main>
+                <el-header>
+                    <i class="myicon myicon-menu toggle-btn" @click="btnCollapse"></i>
+                    <div class="system-title">电商后台管理系统</div>
+                    <span class="welcome">
+                        您好 xxx
+                        <el-button type="text" @click="logoutBtn">退出</el-button>   
+                    </span>
+                    
+                </el-header>
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
             </el-container>
         </el-container>
     </div>
@@ -30,7 +40,9 @@
 import { getUserList } from "@/api/api.js";
 export default {
     data() {
-        return {};
+        return {
+            isCollapse:false
+        }
     },
     methods: {
         handleOpen(key, keyPath) {
@@ -38,6 +50,13 @@ export default {
         },
         handleClose(key, keyPath) {
             console.log(key, keyPath);
+        },
+        btnCollapse() {
+            this.isCollapse = !this.isCollapse
+        },
+        logoutBtn() {
+            localStorage.removeItem('mytoken')
+            this.$router.push({name:'Login'})
         }
     },
     created() {
